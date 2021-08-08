@@ -1,37 +1,15 @@
-//TODO's
-// 1. Store all the data to the localStorage;
-// 2. An option to Delete the Book
-
-
-
-
-
-
-// create a class library and implement the following :
-console.log("hello");
-/* class library{
-    constructor(givenBookList){
-        this.bookList = givenBookList;
+class BOOK {
+    constructor(name,author,type){
+        this.name = name;
+        this.author = author;
+        this.type = type;
     }
-
-} */
-//constructor
-function Book(name, author, type) {
-  this.name = name;
-  this.author = author;
-  this.type = type;
 }
 
-//display Constructor
-function Display() {
-
-}
-
-//Add methods to display Prototype
-Display.prototype.add = function(book){
-    //console.log("Add to ui");
-  tableBody = document.getElementById("tableBody");
-  let html;
+class Display{
+    add(book){
+   let tableBody = document.getElementById("tableBody");
+   let html;
   html = `
   <tr>
   <td>${book.name}</td>
@@ -40,40 +18,36 @@ Display.prototype.add = function(book){
 </tr>
   `
   tableBody.innerHTML += html;
-   
-}
-
-Display.prototype.clear = function(){  
- let libraryForm = document.getElementById("LibraryForm");
- libraryForm.reset();
-}
-
-//implementing validate function
-Display.prototype.validate = function(book){  
-    if(book.name.length < 2 || book.author.length<2)
-    {
-      return false;
-    }   
-    else{
-      return true;
     }
-}
 
-Display.prototype.show = function(type,message){  
-    let alertMessage = document.getElementById('message');
+    clear(){
+        let libraryForm = document.getElementById("LibraryForm");
+        libraryForm.reset();
+    }
+   
+    validate(book){
+        if(book.name.length < 2 || book.author.length<2)
+        {
+          return false;
+        }   
+        else{
+          return true;
+        }
+    }
+    show(type,message){
+        let alertMessage = document.getElementById('message');
     //console.log(alertMessage);
     alertMessage.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
     <strong>Message : </strong> ${message}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>`;
+     </div>`;
 
     setTimeout(() => {
       alertMessage.innerHTML = ' ';
     }, 2000);
+    }
 }
 
-
-//add submit eventListener to form
 let libraryForm = document.getElementById("LibraryForm");
 libraryForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -91,7 +65,7 @@ libraryForm.addEventListener("submit", function (e) {
   } else if (cooking.checked) {
     type = cooking.value;
   }
-  let book = new Book(name, author, type);
+  let book = new BOOK(name, author, type);
   /*  console.log(book);  */
   
   let display = new Display();
